@@ -8,7 +8,7 @@ import DbManager
 
 
 #打算监听的牛人id
-UserList = ['4591548','2712342','5196432','5200551','2507478','3083419']
+UserList = ['4591548']
 
 #全局邮件服务器
 MailManager.Login();

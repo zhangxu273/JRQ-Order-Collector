@@ -1,5 +1,6 @@
 # JRQ-Order-Collector
 金融圈 订单 采集系统
+#Python3.5 项目
 
 #Main.py 为主执行文件
 	UserList 可配置 打算监听的牛人
