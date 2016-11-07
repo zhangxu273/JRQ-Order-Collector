@@ -39,7 +39,7 @@ def Start(_uid,_conn):
 	
 	
 	data = GetHtml(_uid)
-
+	#print (data);
 	resultArray = data.split("data-");
 	
 	#分析数据
@@ -48,6 +48,7 @@ def Start(_uid,_conn):
 		found = re.search('(?<=order=\')(.+)}', res);
 		ParseJson(_uid,found,_conn)
 	_conn.commit()
+	print ("End ParseData");
 	#关闭连接
 	#MailManager.Logout()
 	return
