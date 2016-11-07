@@ -27,7 +27,6 @@ def ParseJson(_uid,_found,_conn):
 		#库里有 但状态和之前不一样 说明是新的
 		elif(len(rows) == 1 and int(rows[0][1]) != int(jo['state'])):
 			isNew = True;
-			
 		#发邮件
 		if (isNew == True):
 			MailManager.SemdMail(_uid, jo)
