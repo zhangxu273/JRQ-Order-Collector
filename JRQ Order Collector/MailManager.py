@@ -1,4 +1,5 @@
-﻿import smtplib
+﻿# coding=utf-8
+import smtplib
 from email.mime.text import MIMEText
 from email.header import Header
 import json
@@ -22,7 +23,7 @@ MailContentTpl_TP_Close = '{0} {1} {2} (止盈平仓)\n 开仓价:{3} 止赢价:
 MailContentTpl_SL_Close = '{0} {1} {2} (止损平仓)\n 开仓价:{3} 止赢价:{4} 止损价:{5}' 
 MailContentTpl_00 = '{0} {1} {2} \n 开仓价:{2} 止赢价{3} 止损价{4}'
 #测试模式 只显示 不发送
-DEBUG_MODE = False
+DEBUG_MODE = True
 	
 #发信
 def SemdMail(_name , _json):

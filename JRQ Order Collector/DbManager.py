@@ -1,3 +1,4 @@
+# coding=utf-8
 #字段名索引
 columeName = [
 	'tr_order',
