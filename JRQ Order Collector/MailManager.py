@@ -36,7 +36,7 @@ def SemdMail(_uid, _name , _json):
 	
 	for recv in receivers:
 		try:
-			message = MIMEText(CreateMailMessage(_name,_json), 'plain', 'utf-8')
+			message = MIMEText(CreateMailMessage(_uid,_name,_json), 'plain', 'utf-8')
 			message['From'] = sender
 			message['To'] =  recv
 			message['Subject'] = MailTitleTpl.format(_json['tr_order'],_json['state'])
