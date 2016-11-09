@@ -30,4 +30,4 @@ def timer(n):
         time.sleep(n)  
   
 if __name__ == '__main__':  
-    timer(300)  
+    timer(60)  
