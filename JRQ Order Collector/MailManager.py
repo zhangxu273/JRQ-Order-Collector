@@ -73,5 +73,5 @@ def CreateMailMessage(_uid , _name,_json):
 
 	jurl = jumpingURL.format(_uid)
 	print('msg={0}\n{1}'.format(msg,jurl))
-	return msg
+	return '{0}\n{1}'.format(msg,jurl)
 
