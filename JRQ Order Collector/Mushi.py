@@ -14,7 +14,7 @@ def GetHtml(_uid):
 	_data = _data.decode('UTF-8')
 	return _data
 	
-def ParseJson(_name,_found,_conn):
+def ParseJson(_url,_name,_found,_conn):
 	if(_found != None):
 		#print(found.group()+'\n')
 		isNew = False
@@ -30,7 +30,7 @@ def ParseJson(_name,_found,_conn):
 			isNew = True;
 		#发邮件
 		if (isNew == True):
-			MailManager.SemdMail(_name, jo)
+			MailManager.SemdMail(_url,_name, jo)
 		#入库
 		_conn.execute(DbManager.GetInsertSQL(jo));
 	return
@@ -46,7 +46,7 @@ def Start(_uid,_conn):
 	print ("Start ParseData {0}".format(userName));
 	for res in resultArray:
 		order_found = re.search('(?<=order=\')(.+)}', res);
-		ParseJson(userName,order_found,_conn)
+		ParseJson(_uid,userName,order_found,_conn)
 	_conn.commit()
 	print ("End ParseData");
 	#关闭连接

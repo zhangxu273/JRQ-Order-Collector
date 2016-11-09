@@ -24,9 +24,12 @@ MailContentTpl_SL_Close = '{0} {1} {2} (止损平仓)\n 开仓价:{3} 止赢价:
 MailContentTpl_00 = '{0} {1} {2} \n 开仓价:{3} 止赢价{4} 止损价{5}'
 #测试模式 只显示 不发送
 DEBUG_MODE = False
+#跳转用url
+jumpingURL = 'https://copyfx.jrq.com/Overview/{0}'
+
 	
 #发信
-def SemdMail(_name , _json):
+def SemdMail(_uid, _name , _json):
 	server = smtplib.SMTP() 
 	server.connect('smtp.163.com',25)  
 	server.login(senderAccount,senderPassword)
@@ -46,7 +49,7 @@ def SemdMail(_name , _json):
 	server.quit()
 	return
 
-def CreateMailMessage(_name,_json):
+def CreateMailMessage(_uid , _name,_json):
 	state = _json['state']
 	comment = _json['comment']
 	print('state={0} comment = {1}'.format(state,comment))
@@ -68,6 +71,7 @@ def CreateMailMessage(_name,_json):
 	else:
 		msg = json.dumps(_json)
 
-	print('msg={0}'.format(msg))
+	jurl = jumpingURL.format(_uid)
+	print('msg={0}\n{1}'.format(msg,jurl))
 	return msg
 

@@ -27,6 +27,7 @@ def timer(n):
     while True:  
         print(time.strftime('%Y-%m-%d %X',time.localtime()) ) 
         task()  
+        print('任务结束\n') 
         time.sleep(n)  
   
 if __name__ == '__main__':  
