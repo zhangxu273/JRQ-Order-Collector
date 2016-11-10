@@ -3,6 +3,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.header import Header
 import json
+import Logger
 
 #发送账号配置
 sender = 'password273@163.com'
@@ -23,7 +24,7 @@ MailContentTpl_TP_Close = '{0} {1} {2} (止盈平仓)\n 开仓价:{3} 止赢价:
 MailContentTpl_SL_Close = '{0} {1} {2} (止损平仓)\n 开仓价:{3} 止赢价:{4} 止损价:{5}' 
 MailContentTpl_00 = '{0} {1} {2} \n 开仓价:{3} 止赢价{4} 止损价{5}'
 #测试模式 只显示 不发送
-DEBUG_MODE = False
+DEBUG_MODE = True
 #跳转用url
 jumpingURL = 'https://copyfx.jrq.com/Overview/{0}'
 
@@ -42,9 +43,9 @@ def SemdMail(_uid, _name , _json):
 			message['Subject'] = MailTitleTpl.format(_json['tr_order'],_json['state'])
 			if DEBUG_MODE == False:
 				server.sendmail(sender,recv,message.as_string()) 
-			print("邮件发送成功") 
+			Logger.Info("邮件发送成功") 
 		except smtplib.SMTPException:
-			print("Error:邮件发送失败")
+			Logger.Error("邮件发送失败")
 			
 	server.quit()
 	return
@@ -52,7 +53,7 @@ def SemdMail(_uid, _name , _json):
 def CreateMailMessage(_uid , _name,_json):
 	state = _json['state']
 	comment = _json['comment']
-	print('state={0} comment = {1}'.format(state,comment))
+	Logger.Info('state={0} comment = {1}'.format(state,comment))
 	msg = '';
 	
 	if(int(state) == 3):
@@ -72,6 +73,6 @@ def CreateMailMessage(_uid , _name,_json):
 		msg = json.dumps(_json)
 
 	jurl = jumpingURL.format(_uid)
-	print('msg={0}\n{1}'.format(msg,jurl))
+	Logger.Info('msg={0}\n{1}'.format(msg,jurl))
 	return '{0}\n{1}'.format(msg,jurl)
 
