@@ -10,7 +10,10 @@ def GetHtml(_uid):
 	print('开始采集' + _uid)
 	_url = "https://copyfx.jrq.com/Widget/__user_published?uid="+_uid+"&type=user_published_trade&page=1"
 	#爬网页
-	_data = urllib.request.urlopen(_url).read()
+	headers = ('User-Agent','Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11')
+	opener = urllib.request.build_opener()
+	opener.addheaders = [headers]
+	_data = opener.open(_url).read()
 	_data = _data.decode('UTF-8')
 	return _data
 	
