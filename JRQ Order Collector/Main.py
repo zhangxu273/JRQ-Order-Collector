@@ -22,7 +22,7 @@ print ("Table created successfully");
 def task():  
 	for uid in UserList:
 		Mushi.Start(uid,conn)
-		time.sleep(1)
+		time.sleep(10)
   
 def timer(n):  
     while True:  
