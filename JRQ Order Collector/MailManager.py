@@ -5,13 +5,22 @@ from email.header import Header
 import json
 import Logger
 import time
+import configparser
+
+config = configparser.ConfigParser()
+config.readfp(open('config.ini',encoding='utf-8'))
+mail_ssl = config.get("Mail","ssl")
+mail_server = config.get("Mail","server")
+mail_port = config.get("Mail","port")
+
+
 
 #发送账号配置
-sender = 'password273@163.com'
-senderAccount = 'password273'
-senderPassword = 'password'
+sender = config.get("Mail","sender")
+senderAccount = config.get("Mail","senderAccount")
+senderPassword = config.get("Mail","senderPassword")
 #接收方账号配置
-receivers = ['im@program.dog','chenheng_bj@163.com']
+receivers = config.get("Mail","receivers").replace('[',"").replace(']',"").split(',')
 #receivers = ['im@program.dog']
 #邮件服务器配置
 
@@ -35,15 +44,15 @@ def SemdMail(_uid, _name , _json):
 	server = smtplib.SMTP() 
 	server.connect('smtp.163.com',25)  
 	server.login(senderAccount,senderPassword)
-	
+	print(receivers)
 	for recv in receivers:
 		try:
 			message = MIMEText(CreateMailMessage(_uid,_name,_json), 'plain', 'utf-8')
 			message['From'] = sender
 			message['To'] =  recv
 			message['Subject'] = CreateMailTitle(_json)
-			if DEBUG_MODE == False:
-				server.sendmail(sender,recv,message.as_string()) 
+		if DEBUG_MODE == False:
+			server.sendmail(sender,recv,message.as_string()) 
 			Logger.Info("邮件发送成功") 
 		except smtplib.SMTPException:
 			Logger.Error("邮件发送失败")
