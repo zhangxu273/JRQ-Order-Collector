@@ -51,8 +51,8 @@ def SemdMail(_uid, _name , _json):
 			message['From'] = sender
 			message['To'] =  recv
 			message['Subject'] = CreateMailTitle(_json)
-		if DEBUG_MODE == False:
-			server.sendmail(sender,recv,message.as_string()) 
+			if DEBUG_MODE == False:
+				server.sendmail(sender,recv,message.as_string()) 
 			Logger.Info("邮件发送成功") 
 		except smtplib.SMTPException:
 			Logger.Error("邮件发送失败")
