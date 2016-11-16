@@ -4,6 +4,7 @@ from email.mime.text import MIMEText
 from email.header import Header
 import json
 import Logger
+import time
 
 #发送账号配置
 sender = 'password273@163.com'
@@ -17,7 +18,7 @@ receivers = ['im@program.dog','chenheng_bj@163.com']
 
  
 #邮件模板
-MailTitleTpl = '订单{0}的状态发生改变，目前状态{1}'
+MailTitleTpl = '{0}:订单{1}的状态发生改变，目前状态{2}'
 MailContentTpl_Handle_Close = '{0} {1} {2} (手动平仓)\n，开仓价:{3} 平仓价{4},收益{5}'
 MailContentTpl_Cancle_Close = '{0} {1} {2}(撤单)\n 委托价:{3} 止赢价:{4} 止损价:{5}' 
 MailContentTpl_TP_Close = '{0} {1} {2} (止盈平仓)\n 开仓价:{3} 止赢价:{4} 止损价:{5}' 
@@ -40,7 +41,7 @@ def SemdMail(_uid, _name , _json):
 			message = MIMEText(CreateMailMessage(_uid,_name,_json), 'plain', 'utf-8')
 			message['From'] = sender
 			message['To'] =  recv
-			message['Subject'] = MailTitleTpl.format(_json['tr_order'],_json['state'])
+			message['Subject'] = CreateMailTitle(_json)
 			if DEBUG_MODE == False:
 				server.sendmail(sender,recv,message.as_string()) 
 			Logger.Info("邮件发送成功") 
@@ -49,7 +50,22 @@ def SemdMail(_uid, _name , _json):
 			
 	server.quit()
 	return
-
+	
+def formatTime(_time):
+	createValue = float(_time)
+	return time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(createValue))
+	
+def CreateMailTitle(_json):
+	otime = formatTime(_json['open_time'])
+	ctime = formatTime(_json['close_time'])
+	ret = ''
+	if(int(_json['state']) == 3):
+		ret = MailTitleTpl.format(ctime,_json['tr_order'],_json['state'])
+	else:
+		ret = MailTitleTpl.format(otime,_json['tr_order'],_json['state'])
+		
+	return ret
+		
 def CreateMailMessage(_uid , _name,_json):
 	state = _json['state']
 	comment = _json['comment']
