@@ -10,7 +10,7 @@ import sys
 
 #全局数据库连接
 
-conn = pymysql.connect(host='localhost',user='root',passwd='djdgrsjh273',db='ORDER_DATA',port=3306,charset='utf8')
+conn = pymysql.connect(host='localhost',user='wp',passwd='djdgrsjh273',db='ORDER_DATA',port=3306,charset='utf8')
 Logger.Info("Opened database successfully");
 cur=conn.cursor()#
 cur.execute(DbManager.GetCreateSQL())

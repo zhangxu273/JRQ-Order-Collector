@@ -61,7 +61,6 @@ columeName = [
 #sql创建语句
 def GetCreateDB():
 	sql = 'CREATE DATABASE ORDER_DATA'
-	print(sql)
 	return sql
 #sql创建语句
 def GetCreateSQL():
@@ -78,7 +77,6 @@ def GetCreateSQL():
 		columeName[31],columeName[32],columeName[33],columeName[34],columeName[35],columeName[36],columeName[37],columeName[38],columeName[39],columeName[40],
 		columeName[41],columeName[42],columeName[43],columeName[44],columeName[45],columeName[46],columeName[47],columeName[48],columeName[49],columeName[50],
 		columeName[51],columeName[52],columeName[53],columeName[54])
-	print(sql)
 	return sql
 		
 		
