@@ -36,7 +36,8 @@ def ParseJson(_url,_name,_found,_conn):
 		if (isNew == True):
 			MailManager.SemdMail(_url,_name, jo)
 		#入库
-		_conn.execute(DbManager.GetInsertSQL(jo));
+		cursor.execute(DbManager.GetInsertSQL(jo));
+		cursor.close()
 	return
 	
 def Start(_uid,_conn):
