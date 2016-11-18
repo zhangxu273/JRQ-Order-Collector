@@ -18,13 +18,13 @@ def GetHtml(_uid):
 	_data = _data.decode('UTF-8')
 	return _data
 	
-def ParseJson(_url,_name,_found,_conn):
+def ParseJson(_uid,_name,_found,_conn):
 	if(_found != None):
 		#Logger.Info(found.group()+'\n')
 		isNew = False
 		jo = json.loads(_found.group());
 		cursor = _conn.cursor()
-		cursor.execute(DbManager.GetSelectSQL(jo['tr_order']))
+		cursor.execute(DbManager.GetSelectOrderSQL(jo['tr_order']))
 		rows = cursor.fetchall()
 		#库里没有说明是新的
 		if(len(rows) == 0): 
@@ -34,9 +34,11 @@ def ParseJson(_url,_name,_found,_conn):
 			isNew = True;
 		#发邮件
 		if (isNew == True):
-			MailManager.SemdMail(_url,_name, jo)
+			MailManager.SemdMail(_uid,_name, jo)
 		#入库
-		cursor.execute(DbManager.GetInsertSQL(jo));
+		cursor.execute(DbManager.GetInsertOrderSQL(_uid,jo));
+		#trader表处理
+		cursor.execute(DbManager.GetInsertTraderSQL(_uid,_name));
 		cursor.close()
 	return
 	

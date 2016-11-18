@@ -22,16 +22,14 @@ sqldb = config.get("Mysql","db")
 conn = pymysql.connect(host=sqlhost,user=sqluser,passwd=sqlpwd,db=sqldb,port=sqlport,charset='utf8')
 Logger.Info("Opened database successfully");
 cur=conn.cursor()#
-cur.execute(DbManager.GetCreateSQL())
+cur.execute(DbManager.GetCreateOrderSQL())
+cur.execute(DbManager.GetCreateTraderSQL())
 cur.close()
 Logger.Info ("Table created successfully");
 
 		
 uid = sys.argv[1]
 if __name__ == '__main__':  
-	Logger.Info(time.strftime('%Y-%m-%d %X',time.localtime()) ) 
-	Mushi.Start(uid,conn) 
-	Logger.Info('任务结束\n')
 	try:
 		Logger.Info(time.strftime('%Y-%m-%d %X',time.localtime()) ) 
 		Mushi.Start(uid,conn) 
